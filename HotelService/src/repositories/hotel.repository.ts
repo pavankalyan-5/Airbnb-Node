@@ -31,7 +31,11 @@ export async function getHotelById(id: number) {
 }
 
 export async function getAllHotels() {
-    const hotels = await Hotel.findAll();
+    const hotels = await Hotel.findAll({
+        where: {
+            isActive: true
+        }
+    });
 
     if(!hotels) {
         logger.error(`No hotels found`);
