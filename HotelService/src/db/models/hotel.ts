@@ -1,4 +1,4 @@
-import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from "sequelize";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import sequelize from "./sequelize";
 
 class Hotel extends Model<InferAttributes<Hotel>, InferCreationAttributes<Hotel> > {
@@ -10,6 +10,7 @@ class Hotel extends Model<InferAttributes<Hotel>, InferCreationAttributes<Hotel>
     declare updatedAt: CreationOptional<Date>;
     declare rating?: number;
     declare ratingCount?: number;
+    declare isActive?: boolean;
 }
 
 Hotel.init({
@@ -45,6 +46,10 @@ Hotel.init({
     ratingCount: {
         type: "INTEGER",
         defaultValue: null,
+    },
+    isActive: {
+       type: DataTypes.BOOLEAN,
+       defaultValue: true 
     }
 }, {
     tableName: "hotels",

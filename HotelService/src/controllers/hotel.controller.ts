@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createHotelService, getAllHotelsService, getHotelByIdService } from "../services/hotel.service";
+import { createHotelService, deleteHotelByIdService, getAllHotelsService, getHotelByIdService, updateHotelByIdService } from "../services/hotel.service";
 import { StatusCodes } from "http-status-codes";
 
 export async function createHotelHandler(req: Request, res: Response, next: NextFunction) {
@@ -47,12 +47,30 @@ export async function getAllHotelsHandler(req: Request, res: Response, next: Nex
 
 export async function deleteHotelHandler(req: Request, res: Response, next: NextFunction) {
 
-    res.status(StatusCodes.NOT_IMPLEMENTED);
+    // 1. Call the service layer
+    const hotelResponse = await deleteHotelByIdService(Number(req.params.id));
+
+    // 2. Send the response
+    res.status(StatusCodes.OK).json({
+        message: "Hotel deleted successfully",
+        data: hotelResponse,
+        success: true,
+    })
     
 }
 
 export async function updateHotelHandler(req: Request, res: Response, next: NextFunction) {
 
-    res.status(StatusCodes.NOT_IMPLEMENTED);
+    // updateHotelByIdService
+
+    // 1. Call the service layer
+    const hotelResponse = await updateHotelByIdService(Number(req.params.id), req.body);
+
+    // 2. Send the response
+    res.status(StatusCodes.OK).json({
+        message: "Hotel updated successfully",
+        data: hotelResponse,
+        success: true,
+    })
     
 }
